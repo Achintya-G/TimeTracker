@@ -1,0 +1,5 @@
+-[ ] Create class that always watches for active window and notes down timestamps for any change
+    -[ ] Create database and related tables
+    -[ ] Create the class(subclass of watchdog class from pywinctl)
+-[ ] Create GUI to show data
+    -[ ] decide on gui lib and how to display data
