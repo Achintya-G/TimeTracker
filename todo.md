@@ -1,5 +1,6 @@
 - [ ] Create function that always watches for active window and notes down timestamps for any change
     - [x] Create function to identify changes
-    - [ ] Create database and related tables
+    - [x] Create database and related tables
+    - [ ] Log data to database
 - [ ] Create GUI to show data
     - [ ] decide on gui lib and how to display data
