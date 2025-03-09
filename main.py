@@ -5,7 +5,7 @@ import pywinctl
 import os
 
 def initialStartup():
-    os.remove("time_tracker.db")
+    # os.remove("time_tracker.db")
     if not os.path.exists("time_tracker.db"):
         conn = sqlite3.connect("time_tracker.db",)
         cur = conn.cursor()
@@ -24,6 +24,16 @@ def initialStartup():
         conn.close()
     pass
 
+
+def logCondenser():
+    conn = sqlite3.connect("time_tracker.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM TIME_LOG")
+    logs = cur.fetchall()
+    for i in logs:
+        print(i)
+        f = "%Y-%m-%d %H:%M:%S"
+        print(datetime.datetime.strptime(i[2][:-7], f),type(datetime.datetime.strptime(i[2][:-7], f)))
 
 
 def trackWindowChanges():
@@ -61,13 +71,18 @@ def onWindowChange(app_name,start_time,end_time):
         if cur.fetchone() is None:
             cur.execute("INSERT INTO APP_IDS (app_name) VALUES (?)", (app_name,))
             conn.commit()
-            time.sleep(0.5)
         cur.execute(f"SELECT app_id FROM APP_IDS WHERE app_name LIKE '{app_name}'")
-        print(cur.fetchall())
+        app_id = cur.fetchall()[0][0]
+
+        cur.execute("INSERT INTO TIME_LOG (app_id,start_time,end_time,time_used) VALUES (?,?,?,?)", (app_id,start_time,end_time,(end_time-start_time).total_seconds()))
+        conn.commit()
+        conn.close()
+
 
 
 
 
 initialStartup()
+logCondenser()
 # Start tracking
 trackWindowChanges()
