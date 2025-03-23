@@ -3,5 +3,6 @@
     - [x] Create database and related tables
     - [x] Log data to database
 - [ ] Create functions that condenses older logs to reduce space
+    - [ ] Remember to account for edge cases (application running at midnight,aplication not used for over a day)
 - [ ] Create GUI to show data
     - [ ] decide on gui lib and how to display data
